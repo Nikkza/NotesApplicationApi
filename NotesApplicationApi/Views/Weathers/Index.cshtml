@@ -1,0 +1,50 @@
+﻿@model IEnumerable<NotesApplicationApi.VievModel.NotesVm>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>- MyNotes @DateTime.Now.ToShortDateString() </h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Notes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Temp)
+        </th>
+       
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Notes)
+          
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Temp)
+            &deg;
+        </td>
+       
+        <td>
+            @Html.ActionLink("Edit Note", "Edit", new {id = item.Id}) |
+            @Html.ActionLink("Delete Note", "Delete", new {id = item.Id})
+        </td>
+    </tr>
+}
+
+</table>

@@ -4,47 +4,71 @@
     ViewBag.Title = "Index";
 }
 
-<h2>- MyNotes @DateTime.Now.ToShortDateString() </h2>
+<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-       
-        <th>
-            @Html.DisplayNameFor(model => model.Date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Notes)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Temp)
-        </th>
-       
-        <th></th>
-    </tr>
+<form id="order_item">
+  Search note:  <input value=" " class="searchInput"/>
+    <input type="hidden" />
+</form>
+<br/>
+<div id="notes">
+    <table class="table">
+        <tr>
 
-@foreach (var item in Model) {
-    <tr>
-       
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Notes)
-          
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Temp)
-            &deg;
-        </td>
-       
-        <td>
-            @Html.ActionLink("Edit Note", "Edit", new {id = item.Id}) |
-            @Html.ActionLink("Delete Note", "Delete", new {id = item.Id})
-        </td>
-    </tr>
+            <th>
+                @Html.ActionLink("Date", "Index", new { sortOrder = ViewBag.DateSortParm })
+
+            </th>
+            <th>
+                @Html.ActionLink("Notes", "Index", new { sortOrder = ViewBag.NameSortParm })
+
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Temp)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Notes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Temp)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
+                    @Html.ActionLink("Delete", "Delete", new {id = item.Id})
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+@section scripts
+{
+    <script>
+        var search = document.querySelector(".searchInput");
+        search.addEventListener("input",
+            function(event) {
+                var text = event.target.value;
+                $.ajax({
+                    url: `/Weathers/Index?query=${text}`,
+                    success: function (data) {
+                        var clone = $(data).find("#notes").html();
+                        $("#notes").html(clone);
+                    }
+                })      
+            });
+    </script>
 }
+   
 
-</table>

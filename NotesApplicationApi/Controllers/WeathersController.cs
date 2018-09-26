@@ -21,6 +21,51 @@ namespace NotesApplicationApi.Controllers
         private Weather _weather;
         private NotesVm _find;
 
+        [HttpGet]
+        public ActionResult Index(string sortOrder,string query)
+        {
+            _notes = db.Weather.ToList();
+            _genericLogic.GetserializeObject = _genericLogic.ReturnResultsFromApi(_logic.GetUrl().UrlApi).Result;
+            foreach (var note in _notes)
+            {
+                var date = note.Date ?? DateTime.Now;
+                _logic.MaxTemp = _logic.TempMaxvalue(_genericLogic.GetserializeObject, date);
+                _notesVmList.Add(new NotesVm(note.Id, date, note.Notes, _logic.MaxTemp));
+            }
+
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
+            var notes = from c in _notesVmList
+                select c;
+
+            switch (sortOrder)
+            {
+                    
+                case "name_desc":
+                    notes = notes.OrderByDescending(l => l.Notes);
+                    break;
+                case "Date":
+                    notes = notes.OrderBy(l => l.Date);
+                    break;
+                case "date_desc":
+                    notes = notes.OrderByDescending(l => l.Date);
+                    break;
+                default:
+                    notes = notes.OrderBy(l => l.Notes);
+                    break;
+            }
+
+         
+            if (!string.IsNullOrEmpty(query))
+            {
+                notes = notes.Where(x => x.Notes.ToLower().Contains(query.ToLower()));
+            }
+
+            return View(notes);
+        }
+
+      
         // GET: Weathers and temp
         public ActionResult Index()
         {

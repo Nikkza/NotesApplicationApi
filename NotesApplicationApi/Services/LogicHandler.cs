@@ -85,7 +85,7 @@ namespace NotesApplicationApi.Services
             {
                 foreach (var item in enumerable)
                 {
-                    maxTempList.Add(item.main.temp);
+                    maxTempList.Add(item.main.temp_max);
 
                 }
 

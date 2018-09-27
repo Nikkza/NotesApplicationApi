@@ -5,9 +5,6 @@ namespace NotesApplicationApi.VievModel
 {
     public class NotesVm
     {
-        private DateTime? date;
-        private string v;
-
         [Key]
         public int Id { get; set; }
 
@@ -18,26 +15,13 @@ namespace NotesApplicationApi.VievModel
 
         public string Temp { get; set; }
 
-        public NotesVm(int id, DateTime date, string notes, string temp)
+        public NotesVm(int id, DateTime? date, string notes, string temp)
         {
             this.Id = id;
-            this.Date = date;
+            this.Date = (DateTime) date;
             this.Notes = notes;
             this.Temp = temp;
 
-        }
-
-        public NotesVm(int id)
-        {
-            this.Id = id;
-
-        }
-
-        public NotesVm(int id, DateTime? date, string notes, string v) : this(id)
-        {
-            this.date = date;
-            Notes = notes;
-            this.v = v;
         }
     }
 }

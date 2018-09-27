@@ -1,16 +1,15 @@
-using NotesApplicationApi.Db;
+using System.Data.Entity;
 using NotesApplicationApi.Migrations;
 
-namespace NotesApplicationApi
+namespace NotesApplicationApi.Db
 {
-    using System.Data.Entity;
-
     public partial class WeatherContex : DbContext
     {
         public WeatherContex()
             : base("WeatherDB")
         {
             Database.SetInitializer(new Configuration.WeatherDbContextInitializer());
+   
         }
 
         public virtual DbSet<Weather> Weather { get; set; }

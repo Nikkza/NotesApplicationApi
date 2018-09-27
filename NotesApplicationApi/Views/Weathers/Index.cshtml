@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>@DateTime.Now.ToShortDateString()</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -43,10 +43,11 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Temp)
+                    &deg;
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
-                    @Html.ActionLink("Delete", "Delete", new {id = item.Id})
+                    @Html.ActionLink("Delete Note", "Delete", new {id = item.Id}) |
+                    @Html.ActionLink("Edit Note", "Edit", new {id = item.Id})
                 </td>
             </tr>
         }

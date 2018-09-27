@@ -21,8 +21,14 @@ namespace NotesApplicationApi.Controllers
         private Weather _weather;
         private NotesVm _find;
 
+        /// <summary>
+        /// Search and sort functionality
+        /// </summary>
+        /// <param name="sortOrder"></param>
+        /// <param name="query"></param>
+        /// <returns></returns>
         [HttpGet]
-        public ActionResult Index(string sortOrder,string query)
+        public ActionResult Index(string sortOrder, string query)
         {
             _notes = db.Weather.ToList();
             _genericLogic.GetserializeObject = _genericLogic.ReturnResultsFromApi(_logic.GetUrl().UrlApi).Result;
@@ -36,12 +42,12 @@ namespace NotesApplicationApi.Controllers
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
 
-            var notes = from c in _notesVmList
-                select c;
+            var notes = from n in _notesVmList
+                        select n;
 
             switch (sortOrder)
             {
-                    
+
                 case "name_desc":
                     notes = notes.OrderByDescending(l => l.Notes);
                     break;
@@ -56,7 +62,6 @@ namespace NotesApplicationApi.Controllers
                     break;
             }
 
-         
             if (!string.IsNullOrEmpty(query))
             {
                 notes = notes.Where(x => x.Notes.ToLower().Contains(query.ToLower()));
@@ -65,7 +70,7 @@ namespace NotesApplicationApi.Controllers
             return View(notes);
         }
 
-      
+
         // GET: Weathers and temp
         public ActionResult Index()
         {
@@ -79,23 +84,6 @@ namespace NotesApplicationApi.Controllers
             }
 
             return View(_notesVmList);
-        }
-
-
-
-        // GET: Weathers/Det
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Weather weather = db.Weather.Find(id);
-            if (weather == null)
-            {
-                return HttpNotFound();
-            }
-            return View(weather);
         }
 
         // GET: Weathers/Create

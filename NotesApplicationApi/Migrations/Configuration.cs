@@ -6,7 +6,7 @@ namespace NotesApplicationApi.Migrations
 {
     using System.Data.Entity.Migrations;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<NotesApplicationApi.WeatherContex>
+    internal sealed class Configuration : DbMigrationsConfiguration<WeatherContex>
     {
         public Configuration()
         {

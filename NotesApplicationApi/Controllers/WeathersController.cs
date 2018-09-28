@@ -36,7 +36,7 @@ namespace NotesApplicationApi.Controllers
             {
                 var date = note.Date ?? DateTime.Now;
                 _logic.MaxTemp = _logic.TempMaxvalue(_genericLogic.GetserializeObject, date);
-                _notesVmList.Add(new NotesVm(note.Id, date, note.Notes, _logic.MaxTemp));
+                _notesVmList.Add(new NotesVm() {Id = note.Id,Date = date, Notes = note.Notes, Temp = _logic.MaxTemp });
             }
 
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
@@ -80,7 +80,7 @@ namespace NotesApplicationApi.Controllers
             {
                 var date = note.Date ?? DateTime.Now;
                 _logic.MaxTemp = _logic.TempMaxvalue(_genericLogic.GetserializeObject, date);
-                _notesVmList.Add(new NotesVm(note.Id, date, note.Notes, _logic.MaxTemp));
+                _notesVmList.Add(new NotesVm() {Id = note.Id ,Date = date, Notes = note.Notes, Temp = _logic.MaxTemp });
             }
 
             return View(_notesVmList);
@@ -156,10 +156,10 @@ namespace NotesApplicationApi.Controllers
             {
                 var date = note.Date ?? DateTime.Now;
                 _logic.MaxTemp = _logic.TempMaxvalue(_genericLogic.GetserializeObject, date);
-                _notesVmList.Add(new NotesVm(note.Id, date, note.Notes, _logic.MaxTemp));
+                _notesVmList.Add(new NotesVm() {Id = note.Id,Date = date, Notes = note.Notes, Temp = _logic.MaxTemp });
             }
 
-            _find = new NotesVm(_weather.Id, _weather.Date, _weather.Notes, _logic.MaxTemp)
+            _find = new NotesVm()
             {
                 Id = _weather.Id,
                 Date = _weather.Date ?? DateTime.Now,

@@ -80,7 +80,7 @@ namespace NotesApplicationApi.Services
             var enumerable = list.ToList();
             if (enumerable.Any() && dateTodaySubstring != dateSubstring && skipDaySub != dateSubstring)
             {
-                return enumerable.Max(e => e.main.temp_max).ToString();
+                return enumerable.Max(e => e.main.temp_max).ToString() + " C°"; ;
             }
             return "?";
         }

@@ -15,6 +15,13 @@ namespace NotesApplicationApi.VievModel
 
         public string Temp { get; set; }
 
-        
+        public NotesVm(int id, DateTime? date, string notes, string temp)
+        {
+            this.Id = id;
+            this.Date = (DateTime)date;
+            this.Notes = notes;
+            this.Temp = temp;
+
+        }
     }
 }

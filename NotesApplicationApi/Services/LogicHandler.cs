@@ -1,7 +1,6 @@
 ﻿using NotesApplicationApi.Models;
 using NotesApplicationApi.ModesApi;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -76,27 +75,14 @@ namespace NotesApplicationApi.Services
             var convertDate = Convert.ToString(date);
             var dateSubstring = convertDate.Substring(0, 10);
 
-            var list = root.list.Where(x => x.dt_txt.StartsWith(dateSubstring.ToString()));
-            string maxTemp = string.Empty;
-            var maxTempList = new List<double>();
+            var list = root.list.Where(x => x.dt_txt.StartsWith(dateSubstring));
 
             var enumerable = list.ToList();
             if (enumerable.Any() && dateTodaySubstring != dateSubstring && skipDaySub != dateSubstring)
             {
-                foreach (var item in enumerable)
-                {
-                    maxTempList.Add(item.main.temp_max);
-
-                }
-
-                double max = 0;
-                max = maxTempList.Max(e => e);
-                maxTemp = Convert.ToString(max);
+                return enumerable.Max(e => e.main.temp_max).ToString();
             }
-            else
-                maxTemp = "?";
-
-            return maxTemp;
+            return "?";
         }
     }
 }

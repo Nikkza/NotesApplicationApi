@@ -34,6 +34,7 @@
 
         @foreach (var item in Model)
         {
+
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Date)
@@ -46,8 +47,8 @@
                     &deg;
                 </td>
                 <td>
-                    @Html.ActionLink("Delete Note", "Delete", new {id = item.Id}) |
-                    @Html.ActionLink("Edit Note", "Edit", new {id = item.Id})
+                    @Html.ActionLink("Delete Note", "Delete", new { id = item.Id }) |
+                    @Html.ActionLink("Edit Note", "Edit", new { id = item.Id })
                 </td>
             </tr>
         }
